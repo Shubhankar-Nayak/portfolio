@@ -1,33 +1,45 @@
 import { motion, useInView } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import * as React from 'react';
- 
+
+interface TextFadeProps {
+  direction: 'up' | 'down';
+  children: React.ReactNode;
+  className?: string;
+  staggerChildren?: number;
+}
+
 export function TextFade({
   direction,
   children,
   className = '',
   staggerChildren = 0.1,
-}: {
-  direction: 'up' | 'down';
-  children: React.ReactNode;
-  className?: string;
-  staggerChildren?: number;
-}) {
-  const FADE_DOWN = {
-    show: { opacity: 1, y: 0, transition: { type: 'spring' } },
-    hidden: { opacity: 0, y: direction === 'down' ? -18 : 18 },
+}: TextFadeProps) {
+  const FADE_VARIANTS: Variants = {
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { type: 'spring' } 
+    },
+    hidden: { 
+      opacity: 0, 
+      y: direction === 'down' ? -18 : 18 
+    },
   };
+
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
+
   return (
     <motion.div
       ref={ref}
       initial="hidden"
-      animate={isInView ? 'show' : ''}
+      animate={isInView ? 'show' : 'hidden'}
       variants={{
         hidden: {},
         show: {
           transition: {
-            staggerChildren: staggerChildren,
+            staggerChildren,
           },
         },
       }}
@@ -35,7 +47,7 @@ export function TextFade({
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child) ? (
-          <motion.div variants={FADE_DOWN}>{child}</motion.div>
+          <motion.div variants={FADE_VARIANTS}>{child}</motion.div>
         ) : (
           child
         )
