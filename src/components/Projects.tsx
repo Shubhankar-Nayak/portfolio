@@ -19,7 +19,7 @@ const Projects: React.FC = () => {
     },
     {
       id: 2,
-      title: "E-Commerse Product Page",
+      title: "E-Commerce Product Page",
       description: "An interactive e-commerce product page with image gallery, dynamic cart updates, and seamless user experience for browsing and purchasing.",
       image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600",
       technologies: ["React", "Tailwind", "Vite"],
@@ -49,13 +49,13 @@ const Projects: React.FC = () => {
     },
     {
       id: 5,
-      title: "IoT Dashboard",
-      description: "Real-time dashboard for IoT device monitoring with data visualization, alerts, and historical analysis capabilities.",
-      image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=600",
-      technologies: ["Vue.js", "D3.js", "Node.js", "InfluxDB"],
+      title: "Voice Appointment System",
+      description: "TypeScript-based web application that allows patients to book medical appointments using voice input, while providing a separate dashboard for both patients and doctors.",
+      image: "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&w=600",
+      technologies: ["React", "Axios", "Web Speech API", "MongoDB"],
       category: "Full Stack",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com"
+      liveUrl: "https://june-cohort-2yg5.vercel.app/",
+      githubUrl: "https://github.com/Shubhankar-Nayak/voice-appointment2"
     },
     {
       id: 6,
