@@ -34,8 +34,8 @@ const Projects: React.FC = () => {
       image: "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600",
       technologies: ["Python", "FastAPI", "Redis", "Docker"],
       category: "Backend",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com"
+      liveUrl: "https://weather-analytics-api.onrender.com",
+      githubUrl: "https://github.com/Shubhankar-Nayak/weather-analytics-api"
     },
     {
       id: 4,
