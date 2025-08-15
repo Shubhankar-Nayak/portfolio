@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
             <LettersPullUp text="Hello, I'm" />
             <LettersPullUp 
               text='Shubhankar' 
-              className='bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent'
+              className='bg-clip-text text-blue-400'
               startDelay={0.6}
             />
           </h1>
