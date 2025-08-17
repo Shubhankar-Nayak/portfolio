@@ -59,13 +59,13 @@ const Projects: React.FC = () => {
     },
     {
       id: 6,
-      title: "Machine Learning API",
-      description: "Scalable ML API for image classification with model versioning, A/B testing, and automated retraining pipelines.",
-      image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600",
-      technologies: ["Python", "TensorFlow", "Kubernetes", "MLflow"],
+      title: "Sentiment Analysis API",
+      description: "A FastAPI-powered sentiment analysis API using NLTK VADER that classifies text as positive, negative, or neutral, fully containerized with Docker for easy deployment.",
+      image: "https://images.pexels.com/photos/7948071/pexels-photo-7948071.jpeg?auto=compress&cs=tinysrgb&w=600",
+      technologies: ["Python", "FastAPI", "VADER", "Docker"],
       category: "Backend",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com"
+      liveUrl: "https://sentiment-analysis-api-miv5.onrender.com",
+      githubUrl: "https://github.com/Shubhankar-Nayak/sentiment-analysis-api"
     }
   ];
 
