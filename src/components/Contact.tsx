@@ -11,8 +11,22 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Enter a valid email";
+    }
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message cannot be empty";
+    return newErrors;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -25,15 +39,28 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("https://formspree.io/f/xjkodjyq", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" }); // reset form
+      } else {
+        alert("Something went wrong. Please try again!");
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      alert("Something went wrong. Please try again!");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -61,17 +88,17 @@ const Contact: React.FC = () => {
     {
       icon: <FaGithub className="w-5 h-5" />,
       label: "GitHub",
-      href: "https://github.com"
+      href: "https://github.com/Shubhankar-Nayak"
     },
     {
       icon: <FaLinkedin className="w-5 h-5" />,
       label: "LinkedIn",
-      href: "https://linkedin.com"
+      href: "https://www.linkedin.com/in/shubhankar-nayak-1b953328a/"
     },
     {
       icon: <FaXTwitter className="w-5 h-5" />,
       label: "Twitter",
-      href: "https://twitter.com"
+      href: "https://x.com/ShubhNayak6839"
     }
   ];
 
@@ -128,11 +155,16 @@ const Contact: React.FC = () => {
                       id='email'
                       name='email'
                       value={formData.email}
-                      onChange={handleChange}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       required
                       className='w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:border-transparent transition-colors'
                       placeholder='John@example.com'
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -145,11 +177,16 @@ const Contact: React.FC = () => {
                     id='subject'
                     name='subject'
                     value={formData.subject}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, subject: e.target.value })
+                    }
                     required
                     className='w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:border-transparent transition-colors'
                     placeholder='Project Inquiry'
                   />
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
+                  )}
                 </div>
 
                 <div>
@@ -160,12 +197,17 @@ const Contact: React.FC = () => {
                     id="message"
                     name="message"
                     value={formData.message}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     required
                     rows={5}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                     placeholder="Tell me about your project..."
-                  ></textarea>
+                  />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                  )}
                 </div>
 
                 <button
@@ -185,6 +227,12 @@ const Contact: React.FC = () => {
                     </>
                   )}
                 </button>
+
+                {isSubmitted && (
+                  <p className="text-green-500 text-sm mt-2">
+                    ✅ Your message has been sent successfully!
+                  </p>
+                )}
               </form>
             )}
           </div>
